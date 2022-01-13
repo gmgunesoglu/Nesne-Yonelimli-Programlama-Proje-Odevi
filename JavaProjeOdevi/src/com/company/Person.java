@@ -45,9 +45,6 @@ public abstract class Person {
         this.id = id;
     }
 
-
-
-
     public int createId(File file,int userID){
         try {
             Scanner reader=new Scanner(file);
@@ -58,7 +55,7 @@ public abstract class Person {
                 line=reader.nextLine();
                 linesp=line.split("   ");
                 if(Integer.parseInt(linesp[0])<(userID+999998)){
-                    if(id<Integer.parseInt(linesp[0])){                //buraya kucuk eşittir yazmadığım için biraz sıkıntı olmuştu
+                    if(id<=Integer.parseInt(linesp[0])){                //buraya kucuktur yazmadığım için biraz sıkıntı olmuştu
                         id=(Integer.parseInt(linesp[0])+1);
                     }
                 }

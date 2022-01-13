@@ -1,11 +1,8 @@
 package com.company;
 
-public class Trainer extends Registerer{
-    private String workingArea;
-    private static int id=14000000;
+public class Trainer extends Workers{
 
     public Trainer(String name, String surname, String password, String birthDate, String startDate, String[] offDays, Double salary,int workOfficeCode) {
-        super(name, surname, password, birthDate, startDate, offDays, salary,workOfficeCode);
 
         for(String s:offDays) {
             if (!s.equalsIgnoreCase("sunday") && !s.equalsIgnoreCase("monday") && !s.equalsIgnoreCase("tuesday") &&
@@ -23,5 +20,30 @@ public class Trainer extends Registerer{
         super.setOffDays(offDays);
         super.setSalary(salary);
         super.setWorkOfficeCode(workOfficeCode);
+    }
+
+    public boolean screen(Person user) {
+        System.out.println("Choose an action:");
+        IntroScreen.scan.hasNext();                                                     //bug önlemek için
+        String action=IntroScreen.scan.nextLine();
+        if(action.equalsIgnoreCase("exit")){
+            System.out.println("Exiting...");
+            return false;
+        }else if(action.equalsIgnoreCase("Print my informations")){
+            printWorkerInformations((Workers) user);
+        }else if(action.equalsIgnoreCase("Update my informations")){
+            updateWorkerInformations((Workers) user);
+            IntroScreen.takeLog(user.getId()+" Updated Informations");
+        }else if(action.equalsIgnoreCase("Print my actions")){
+            printMyActions();
+        }
+        return true;
+    }
+
+    public void printMyActions(){                    //method override
+        System.out.println("Exit");
+        System.out.println("Print my informations");
+        System.out.println("Update my informations");
+        System.out.println("Print my actions");
     }
 }

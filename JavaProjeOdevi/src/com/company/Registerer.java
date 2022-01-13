@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Registerer extends Workers{
-    private static int id=13000000;
 
     public Registerer(String name,String surname,String password, String birthDate,String startDate,String[] offDays,Double salary,int workOfficeCode) {
 
@@ -29,9 +28,6 @@ public class Registerer extends Workers{
         setWorkOfficeCode(workOfficeCode);
     }
 
-
-
-
     public boolean screen(Person user) {
         System.out.println("Choose an action:");
         IntroScreen.scan.hasNext();                                                     //bug önlemek için
@@ -41,14 +37,15 @@ public class Registerer extends Workers{
             return false;
         }else if(action.equalsIgnoreCase("Add Customer")){
             addCustomer();
+            IntroScreen.takeLog(user.getId()+" Added Customer");
         }else if(action.equalsIgnoreCase("Delete Customer")){
             deleteCustomer();
-        }else if(action.equalsIgnoreCase("Add Team Working Event")){
-
-        }else if(action.equalsIgnoreCase("Delete Team Working Event")){
-
+            IntroScreen.takeLog(user.getId()+" Deleted Customer");
         }else if(action.equalsIgnoreCase("Print my informations")){
               printWorkerInformations((Workers) user);
+        }else if(action.equalsIgnoreCase("Update my informations")){
+            updateWorkerInformations((Workers) user);
+            IntroScreen.takeLog(user.getId()+" Updated Informations");
         }else if(action.equalsIgnoreCase("Print my actions")){
             printMyActions();
         }
@@ -59,9 +56,8 @@ public class Registerer extends Workers{
         System.out.println("Exit");
         System.out.println("Add Customer");
         System.out.println("Delete Customer");
-        System.out.println("Add Team Working Event");
-        System.out.println("Delete Team Working Event\"");
         System.out.println("Print my informations");
+        System.out.println("Update my informations");
         System.out.println("Print my actions");
     }
 
@@ -88,7 +84,6 @@ public class Registerer extends Workers{
         System.out.println("Weight:");
         double weight = IntroScreen.scan.nextDouble();
         Person customer;
-
 
         if (customerType.equalsIgnoreCase("gold")){
             customer =new CustomerGold(name,surname,password,birthDate,startDate,customerType,duration,lenght,weight);

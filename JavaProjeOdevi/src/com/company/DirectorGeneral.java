@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class DirectorGeneral extends Director{
 
-
     public DirectorGeneral(String name, String surname, String password, String birthDate, String startDate, String[] offDays, Double salary,int workOfficeCode) {
         super(name, surname, password, birthDate, startDate, offDays, salary,workOfficeCode);
         for(String s:offDays){
@@ -20,7 +19,6 @@ public class DirectorGeneral extends Director{
 
     }
 
-
     public boolean screen(Person user) {
         System.out.println("Choose an action:");
         IntroScreen.scan.hasNext();                                                     //bug önlemek için
@@ -30,14 +28,21 @@ public class DirectorGeneral extends Director{
             return false;
         }else if(action.equalsIgnoreCase("Add Sub Office")){
             addSubOffice();
+            IntroScreen.takeLog(user.getId()+" Added Sub Office");
         }else if(action.equalsIgnoreCase("Delete Sub Office")){
             deleteSubOffice();
+            IntroScreen.takeLog(user.getId()+" Deleted Sub Office");
         }else if(action.equalsIgnoreCase("Add Director")){
             addWorker(12000001);
+            IntroScreen.takeLog(user.getId()+" Added Director");
         }else if(action.equalsIgnoreCase("Delete Director")){
             deleteWorker(12000001);
+            IntroScreen.takeLog(user.getId()+" Deleted Director");
         }else if(action.equalsIgnoreCase("Print my informations")){
             printWorkerInformations((Workers) user);
+        }else if(action.equalsIgnoreCase("Update my informations")){
+            updateWorkerInformations((Workers) user);
+            IntroScreen.takeLog(user.getId()+" Updated Informations");
         }else if(action.equalsIgnoreCase("Print my actions")){
             printMyActions();
         }
@@ -51,6 +56,7 @@ public class DirectorGeneral extends Director{
         System.out.println("Add Director");
         System.out.println("Delete Director");
         System.out.println("Print my informations");
+        System.out.println("Update my informations");
         System.out.println("Print my actions");
     }
 
@@ -153,23 +159,23 @@ public class DirectorGeneral extends Director{
         //Bu noktadan sornası dosyaya kaydetme işlemi
         try {
             FileWriter subOfficeWriter=new FileWriter(IntroScreen.subofficestxt,true);
-            subOfficeWriter.write("general"+"||"+subOffice.getSubOfficeID()+"||"+subOffice.getName()+"||"+subOffice.getShowerRoomNuber()+"||"+subOffice.getToiletNumber()+"||"+subOffice.getWearingRoomNumber()+"||"+subOffice.getAddress()+"\n");
+            subOfficeWriter.write("general"+" # "+subOffice.getSubOfficeID()+" # "+subOffice.getName()+" # "+subOffice.getShowerRoomNuber()+" # "+subOffice.getToiletNumber()+" # "+subOffice.getWearingRoomNumber()+" # "+subOffice.getAddress()+"\n");
             if(subOffice.swimmingPool!=null){
-                subOfficeWriter.write("pool"+"||"+subOffice.swimmingPool.getType()+"||"+subOffice.swimmingPool.getMaxLimit()+"\n");
+                subOfficeWriter.write("pool"+" # "+subOffice.swimmingPool.getType()+" # "+subOffice.swimmingPool.getMaxLimit()+"\n");
             }
-            subOfficeWriter.write("cardio"+"||"+subOffice.fitness.cardioEquipments.getTreadmillNumber()+"||"+subOffice.fitness.cardioEquipments.getVerticalBikeNumber()+"||"+subOffice.fitness.cardioEquipments.getHorizontalBikeNumber()
-                    +"||"+subOffice.fitness.cardioEquipments.getEllipticalBikeNumber()+"||"+subOffice.fitness.cardioEquipments.getClimberNumber()+"||"+subOffice.fitness.cardioEquipments.getStepMillNumber()+"\n");
-            subOfficeWriter.write("multi"+"||"+subOffice.fitness.multiFunctionEquipments.getFourGymStationNumber()+"||"+subOffice.fitness.multiFunctionEquipments.getSissySquatNumber()+"||"+subOffice.fitness.multiFunctionEquipments.getOlympicAdjustableBenchNumber()
-                    +"||"+subOffice.fitness.multiFunctionEquipments.getGluteHamDeveloperNumber()+"||"+subOffice.fitness.multiFunctionEquipments.getMultiPowerNumber()+"||"+subOffice.fitness.multiFunctionEquipments.getFiveStationNumber()+"\n");
-            subOfficeWriter.write("strenght"+"||"+subOffice.fitness.strenghtEquipments.getChestPresCorgemontNumber()+"||"+subOffice.fitness.strenghtEquipments.getLatPuldownNumber()+"||"+subOffice.fitness.strenghtEquipments.getSeatedLegPressNumber()
-                    +"||"+subOffice.fitness.strenghtEquipments.getFlatBanchNumber()+"||"+subOffice.fitness.strenghtEquipments.getLatPuldownNumber()+"||"+subOffice.fitness.strenghtEquipments.getOlympicFlatBanchNumber()+"\n");
-            subOfficeWriter.write("other"+"||"+subOffice.fitness.otherEquipments.getExerciseMat()+"||"+subOffice.fitness.otherEquipments.getHexagonDumball5()+"||"+subOffice.fitness.otherEquipments.getHexagonDumball10()+"||"+subOffice.fitness.otherEquipments.getHexagonDumball20()
-                    +"||"+subOffice.fitness.otherEquipments.getKettlebell10()+"||"+subOffice.fitness.otherEquipments.getKettlebell20()+"||"+subOffice.fitness.otherEquipments.getKettlebell30()+"||"+subOffice.fitness.otherEquipments.getElasticBand()
-                    +"||"+subOffice.fitness.otherEquipments.getJumpRope()+"||"+subOffice.fitness.otherEquipments.getWellnessBall()+"||"+subOffice.fitness.otherEquipments.getBalancePad()+"\n");
+            subOfficeWriter.write("cardio"+" # "+subOffice.fitness.cardioEquipments.getTreadmillNumber()+" # "+subOffice.fitness.cardioEquipments.getVerticalBikeNumber()+" # "+subOffice.fitness.cardioEquipments.getHorizontalBikeNumber()
+                    +" # "+subOffice.fitness.cardioEquipments.getEllipticalBikeNumber()+" # "+subOffice.fitness.cardioEquipments.getClimberNumber()+" # "+subOffice.fitness.cardioEquipments.getStepMillNumber()+"\n");
+            subOfficeWriter.write("multi"+" # "+subOffice.fitness.multiFunctionEquipments.getFourGymStationNumber()+" # "+subOffice.fitness.multiFunctionEquipments.getSissySquatNumber()+" # "+subOffice.fitness.multiFunctionEquipments.getOlympicAdjustableBenchNumber()
+                    +" # "+subOffice.fitness.multiFunctionEquipments.getGluteHamDeveloperNumber()+" # "+subOffice.fitness.multiFunctionEquipments.getMultiPowerNumber()+" # "+subOffice.fitness.multiFunctionEquipments.getFiveStationNumber()+"\n");
+            subOfficeWriter.write("strenght"+" # "+subOffice.fitness.strenghtEquipments.getChestPresCorgemontNumber()+" # "+subOffice.fitness.strenghtEquipments.getLatPuldownNumber()+" # "+subOffice.fitness.strenghtEquipments.getSeatedLegPressNumber()
+                    +" # "+subOffice.fitness.strenghtEquipments.getFlatBanchNumber()+" # "+subOffice.fitness.strenghtEquipments.getLatPuldownNumber()+" # "+subOffice.fitness.strenghtEquipments.getOlympicFlatBanchNumber()+"\n");
+            subOfficeWriter.write("other"+" # "+subOffice.fitness.otherEquipments.getExerciseMat()+" # "+subOffice.fitness.otherEquipments.getHexagonDumball5()+" # "+subOffice.fitness.otherEquipments.getHexagonDumball10()+" # "+subOffice.fitness.otherEquipments.getHexagonDumball20()
+                    +" # "+subOffice.fitness.otherEquipments.getKettlebell10()+" # "+subOffice.fitness.otherEquipments.getKettlebell20()+" # "+subOffice.fitness.otherEquipments.getKettlebell30()+"||"+subOffice.fitness.otherEquipments.getElasticBand()
+                    +" # "+subOffice.fitness.otherEquipments.getJumpRope()+" # "+subOffice.fitness.otherEquipments.getWellnessBall()+" # "+subOffice.fitness.otherEquipments.getBalancePad()+"\n");
             if (subOffice.teamWorkingRooms.size()>0){
                 subOfficeWriter.write("team");
                 for(int i=0;i<subOffice.teamWorkingRooms.size();i++){
-                    subOfficeWriter.write("||"+subOffice.teamWorkingRooms.get(i).getMaxLimit());
+                    subOfficeWriter.write(" # "+subOffice.teamWorkingRooms.get(i).getMaxLimit());
                 }
                 subOfficeWriter.write("\n");
             }
@@ -192,7 +198,7 @@ public class DirectorGeneral extends Director{
         try (Scanner reader = new Scanner(IntroScreen.subofficestxt)) {
             while (reader.hasNext()) {
                 line=reader.nextLine();
-                linesp=line.split("||");
+                linesp=line.split(" # ");
                 if(linesp[0].equals("general")&&linesp[1].equals(subOfficeID)){
                     while(!reader.nextLine().equals("#######################################################################################################################"));
                 }else{

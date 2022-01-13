@@ -2,6 +2,8 @@ package com.company;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class IntroScreen {
@@ -9,6 +11,7 @@ public class IntroScreen {
     static File workerstxt=new File("C:\\Users\\Gokhan\\IdeaProjects\\JavaProjeOdevi\\src\\Workers.txt");
     static File customerstxt=new File("C:\\Users\\Gokhan\\IdeaProjects\\JavaProjeOdevi\\src\\Customers.txt");
     static File subofficestxt=new File("C:\\Users\\Gokhan\\IdeaProjects\\JavaProjeOdevi\\src\\SubOffices.txt");
+    static File logstxt=new File("C:\\Users\\Gokhan\\IdeaProjects\\JavaProjeOdevi\\src\\Logs.txt");
 
     public static void main(String[] args) {
         System.out.println("Wellcome to Fitness Center\n");
@@ -24,12 +27,12 @@ public class IntroScreen {
         Person user=connectUser(userID);        //polymorphism
         user.setId(userID);
 
-        System.out.println("Wellcome "+user.getName());
+        System.out.println("Wellcome "+user.getName()+" "+user.getSurname());
+        takeLog(user.getId()+" ["+user.getName()+" "+user.getSurname()+"] Logged in...");
         while(user.screen(user));
 
         return;
     }
-
 
     private static Boolean userLogin(int userID,String password){
         String line;
@@ -115,6 +118,16 @@ public class IntroScreen {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public static void takeLog(String str){
+        try {
+            FileWriter fileWriter=new FileWriter(IntroScreen.logstxt,true);
+            fileWriter.write(str+"\n");
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println(e);
         }
     }
 }

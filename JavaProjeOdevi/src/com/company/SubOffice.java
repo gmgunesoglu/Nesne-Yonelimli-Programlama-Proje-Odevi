@@ -28,6 +28,29 @@ public class SubOffice {
     public void createTeamWorkingRoom(int maxLimit){
         this.teamWorkingRooms.add(new TeamWorkingRoom(maxLimit));
     }
+    public void createSubOfficeID() {
+        Scanner reader;
+        try {
+            reader = new Scanner(IntroScreen.subofficestxt);
+            String line;
+            String[] linesp;
+            int id=1000001;
+            while(reader.hasNext()){
+                line=reader.nextLine();
+                linesp=line.split(" # ");                               //split içine "||" yazma
+                if(linesp[0].equalsIgnoreCase("general")){
+                    if(id<=Integer.parseInt(linesp[1])){                    //yine aynı şekilde küçüktür işareti yakar!!!
+                        id=(Integer.parseInt(linesp[1])+1);
+                    }
+                }
+            }
+            reader.close();
+            this.subOfficeID = id;
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        }
+
+    }
 
     //------------------------------------------------------------------------------------------------------------------
     public String getName() {
@@ -63,29 +86,6 @@ public class SubOffice {
     public int getSubOfficeID() {
         return subOfficeID;
     }
-    public void createSubOfficeID() {
-        Scanner reader;
-        try {
-            reader = new Scanner(IntroScreen.subofficestxt);
-            String line;
-            String[] lines;
-            int id=1000000;
-            while(reader.hasNext()){
-                line=reader.nextLine();
-                lines=line.split("||");
-                if(lines[0].equalsIgnoreCase("general")){
-                    if(id<Integer.parseInt(lines[1])){
-                        id=Integer.parseInt(lines[1]);
-                    }
-                }
-            }
-            reader.close();
-            this.subOfficeID = (id+1);
-        } catch (FileNotFoundException e) {
-            System.out.println(e);
-        }
-
-    }
 
     //------------------------------------------------------------------------------------------------------------------
     public class SwimmingPool{
@@ -118,7 +118,7 @@ public class SubOffice {
 
         public void createCardioEquipments(int treadmillNumber, int verticalBikeNumber, int horizontalBikeNumber, int ellipticalBikeNumber, int climberNumber, int stepMillNumber){
             this.cardioEquipments=new CardioEquipments(treadmillNumber,verticalBikeNumber,horizontalBikeNumber,ellipticalBikeNumber,climberNumber,stepMillNumber);
-        }
+         }
         public void createMultiFunctionEquipments(int fourGymStationNumber, int sissySquatNumber, int olympicAdjustableBenchNumber, int gluteHamDeveloperNumber, int multiPowerNumber, int fiveStationNumber){
             this.multiFunctionEquipments=new MultiFunctionEquipments(fourGymStationNumber,sissySquatNumber,olympicAdjustableBenchNumber,gluteHamDeveloperNumber,multiPowerNumber,fiveStationNumber);
         }

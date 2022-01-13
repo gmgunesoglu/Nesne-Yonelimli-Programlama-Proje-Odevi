@@ -33,8 +33,12 @@ public class Main {
             System.out.println(string);
         }
         System.out.println(directorGeneral.getId());
-*/
-
+*/      String line="general&&1000001 && ankara office && 0 && 8 && 8 && tavsantepe mahallesi Mustafa Kemal caddesi 2.sokak no:13";
+        String[] linesp;
+        linesp=line.split("&&");
+        for (String s:linesp){
+            System.out.println(s);
+        }
 
     }
 }

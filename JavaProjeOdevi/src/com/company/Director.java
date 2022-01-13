@@ -9,7 +9,6 @@ import java.util.StringJoiner;
 
 public class Director extends Registerer{
 
-
     public Director(String name, String surname, String password, String birthDate, String startDate, String[] offDays, Double salary,int workOfficeCode) {
         super(name, surname, password, birthDate, startDate, offDays, salary,workOfficeCode);
 
@@ -40,18 +39,27 @@ public class Director extends Registerer{
             return false;
         }else if(action.equalsIgnoreCase("Add Registerer")){
             addWorker(13000001);
+            IntroScreen.takeLog(user.getId()+" Added Registerer");
         }else if(action.equalsIgnoreCase("Delete Registerer")){
             deleteWorker(13000001);
+            IntroScreen.takeLog(user.getId()+" Deleted Registerer");
         }else if(action.equalsIgnoreCase("Add Trainer")){
             addWorker(14000001);
+            IntroScreen.takeLog(user.getId()+" Added Trainer");
         }else if(action.equalsIgnoreCase("Delete Trainer")){
             deleteWorker(14000001);
+            IntroScreen.takeLog(user.getId()+" Deleted Trainer");
         }else if(action.equalsIgnoreCase("Add Cleaner")){
             addWorker(15000001);
+            IntroScreen.takeLog(user.getId()+" Added Cleaner");
         }else if(action.equalsIgnoreCase("Delete Cleaner")){
             deleteWorker(15000001);
+            IntroScreen.takeLog(user.getId()+" Deleted Cleaner");
         }else if(action.equalsIgnoreCase("Print my informations")){
             printWorkerInformations((Workers) user);
+        }else if(action.equalsIgnoreCase("Update my informations")){
+            updateWorkerInformations((Workers) user);
+            IntroScreen.takeLog(user.getId()+" Updated Informations");
         }else if(action.equalsIgnoreCase("Print my actions")){
             printMyActions();
         }
@@ -67,6 +75,7 @@ public class Director extends Registerer{
         System.out.println("Add Cleaner");
         System.out.println("Delete Cleaner");
         System.out.println("Print my informations");
+        System.out.println("Update my informations");
         System.out.println("Print my actions");
     }
 
